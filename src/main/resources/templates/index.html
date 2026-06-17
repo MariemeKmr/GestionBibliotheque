@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head th:replace="~{fragments/layout :: head('Accueil')}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<main class="container">
+
+    <section class="hero">
+        <h2>Bienvenue dans votre bibliotheque</h2>
+        <p>Gerez vos livres, vos adherents et le suivi des emprunts depuis une interface simple et claire.</p>
+    </section>
+
+    <!-- Statistiques -->
+    <section class="stats">
+        <div class="stat-card">
+            <div class="stat-icone">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+            </div>
+            <div>
+                <div class="stat-valeur" th:text="${nbLivres}">0</div>
+                <div class="stat-label">Livres au catalogue</div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icone">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <div>
+                <div class="stat-valeur" th:text="${nbUtilisateurs}">0</div>
+                <div class="stat-label">Utilisateurs inscrits</div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icone">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                    <line x1="12" y1="22" x2="12" y2="12"></line>
+                </svg>
+            </div>
+            <div>
+                <div class="stat-valeur" th:text="${nbEmpruntsEnCours}">0</div>
+                <div class="stat-label">Emprunts en cours</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Actions rapides -->
+    <h3 style="margin-bottom:16px; color:var(--marron-fonce);">Actions rapides</h3>
+    <section class="actions-rapides">
+        <a class="action-tuile" th:href="@{/livres/nouveau}">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Ajouter un livre</span>
+        </a>
+        <a class="action-tuile" th:href="@{/utilisateurs/nouveau}">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <line x1="19" y1="8" x2="19" y2="14"></line>
+                <line x1="22" y1="11" x2="16" y2="11"></line>
+            </svg>
+            <span>Ajouter un utilisateur</span>
+        </a>
+        <a class="action-tuile" th:href="@{/emprunts/nouveau}">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.29 7 12 12 20.71 7"></polyline>
+            </svg>
+            <span>Enregistrer un emprunt</span>
+        </a>
+    </section>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

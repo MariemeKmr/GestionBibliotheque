@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head th:replace="~{fragments/layout :: head('Nouvel utilisateur')}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line>
+            </svg>
+            Ajouter un utilisateur
+        </h1>
+        <a class="btn btn-secondaire" th:href="@{/utilisateurs}">Retour a la liste</a>
+    </div>
+
+    <div class="card">
+        <form th:action="@{/utilisateurs/enregistrer}" th:object="${utilisateur}" method="post">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="form-grid">
+                <div class="form-groupe">
+                    <label for="prenom">Prenom</label>
+                    <input type="text" id="prenom" th:field="*{prenom}" placeholder="Ex : Marieme">
+                    <span class="erreur-champ" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></span>
+                </div>
+
+                <div class="form-groupe">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" th:field="*{nom}" placeholder="Ex : Kamara">
+                    <span class="erreur-champ" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+                </div>
+
+                <div class="form-groupe">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" th:field="*{email}" placeholder="Ex : marieme@example.sn">
+                    <span class="erreur-champ" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </div>
+
+                <div class="form-groupe">
+                    <label for="telephone">Telephone</label>
+                    <input type="text" id="telephone" th:field="*{telephone}" placeholder="Ex : +221 77 000 00 00">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primaire">Enregistrer</button>
+                    <a class="btn btn-secondaire" th:href="@{/utilisateurs}">Annuler</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

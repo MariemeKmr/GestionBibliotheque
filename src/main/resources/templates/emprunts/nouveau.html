@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head th:replace="~{fragments/layout :: head('Nouvel emprunt')}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.29 7 12 12 20.71 7"></polyline>
+            </svg>
+            Enregistrer un emprunt
+        </h1>
+        <a class="btn btn-secondaire" th:href="@{/emprunts}">Retour a l'historique</a>
+    </div>
+
+    <th:block th:replace="~{fragments/layout :: alertes}"></th:block>
+
+    <div class="card">
+        <!-- Cas : pas de livre disponible ou pas d'utilisateur -->
+        <div th:if="${livresDisponibles.isEmpty() or utilisateurs.isEmpty()}" class="vide">
+            <p th:if="${livresDisponibles.isEmpty()}">Aucun livre disponible a l'emprunt. Ajoutez ou liberez un livre.</p>
+            <p th:if="${utilisateurs.isEmpty()}" style="margin-top:8px;">Aucun utilisateur enregistre. Ajoutez d'abord un utilisateur.</p>
+        </div>
+
+        <form th:unless="${livresDisponibles.isEmpty() or utilisateurs.isEmpty()}"
+              th:action="@{/emprunts/emprunter}" method="post">
+            <div class="form-grid">
+                <div class="form-groupe">
+                    <label for="livreId">Livre a emprunter</label>
+                    <select id="livreId" name="livreId" required>
+                        <option value="" disabled selected>-- Choisir un livre --</option>
+                        <option th:each="livre : ${livresDisponibles}"
+                                th:value="${livre.id}"
+                                th:text="${livre.titre} + ' (' + ${livre.quantiteDisponible} + ' dispo.)'">Titre</option>
+                    </select>
+                </div>
+
+                <div class="form-groupe">
+                    <label for="utilisateurId">Emprunteur</label>
+                    <select id="utilisateurId" name="utilisateurId" required>
+                        <option value="" disabled selected>-- Choisir un utilisateur --</option>
+                        <option th:each="u : ${utilisateurs}"
+                                th:value="${u.id}"
+                                th:text="${u.nomComplet}">Nom</option>
+                    </select>
+                </div>
+
+                <div class="form-groupe pleine-largeur">
+                    <p style="color:var(--texte-doux); font-size:0.9rem;">
+                        La date de retour prevue sera fixee automatiquement a 14 jours apres l'emprunt.
+                    </p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primaire">Confirmer l'emprunt</button>
+                    <a class="btn btn-secondaire" th:href="@{/emprunts}">Annuler</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

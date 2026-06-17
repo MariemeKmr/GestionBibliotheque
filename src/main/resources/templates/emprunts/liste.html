@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head th:replace="~{fragments/layout :: head('Emprunts')}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                <line x1="12" y1="22" x2="12" y2="12"></line>
+            </svg>
+            Historique des emprunts
+        </h1>
+        <a class="btn btn-primaire" th:href="@{/emprunts/nouveau}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Nouvel emprunt
+        </a>
+    </div>
+
+    <th:block th:replace="~{fragments/layout :: alertes}"></th:block>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th>Livre</th>
+                <th>Emprunteur</th>
+                <th>Date emprunt</th>
+                <th>Retour prevu</th>
+                <th>Retour effectif</th>
+                <th>Statut</th>
+                <th style="text-align:right;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${emprunts.isEmpty()}">
+                <td colspan="7" class="vide">Aucun emprunt enregistre pour le moment.</td>
+            </tr>
+            <tr th:each="e : ${emprunts}">
+                <td th:text="${e.livre.titre}" style="font-weight:600;">Livre</td>
+                <td th:text="${e.utilisateur.nomComplet}">Emprunteur</td>
+                <td th:text="${#temporals.format(e.dateEmprunt, 'dd/MM/yyyy')}">date</td>
+                <td th:text="${e.dateRetourPrevue != null} ? ${#temporals.format(e.dateRetourPrevue, 'dd/MM/yyyy')} : '—'">prevu</td>
+                <td th:text="${e.dateRetourEffective != null} ? ${#temporals.format(e.dateRetourEffective, 'dd/MM/yyyy')} : '—'">effectif</td>
+                <td>
+                    <span th:if="${e.statut.name() == 'RETOURNE'}" class="badge badge-gris">Retourne</span>
+                    <span th:if="${e.statut.name() == 'EN_COURS' and !e.enRetard}" class="badge badge-orange">En cours</span>
+                    <span th:if="${e.statut.name() == 'EN_COURS' and e.enRetard}" class="badge badge-rouge">En retard</span>
+                </td>
+                <td>
+                    <div class="actions-cellule" style="justify-content:flex-end;">
+                        <form th:if="${e.statut.name() == 'EN_COURS'}"
+                              th:action="@{/emprunts/{id}/retourner(id=${e.id})}" method="post">
+                            <button type="submit" class="btn btn-vert btn-sm">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 14 4 9 9 4"></polyline>
+                                    <path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
+                                </svg>
+                                Retourner
+                            </button>
+                        </form>
+                        <span th:unless="${e.statut.name() == 'EN_COURS'}" style="color:var(--texte-doux);">—</span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
