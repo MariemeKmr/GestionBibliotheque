@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${titre} + ' - Bibliotheque'">Bibliotheque</title>
+    <!-- Icone de l'onglet (favicon) -->
+    <link rel="icon" type="image/svg+xml" th:href="@{/favicon.svg}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/favicon-32.png}">
+    <link rel="alternate icon" type="image/x-icon" th:href="@{/favicon.ico}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -90,7 +94,11 @@
 
 <!-- ============ Fragment : pied de page ============ -->
 <footer class="footer" th:fragment="footer">
-    Gestion de Bibliotheque &middot; Realise par Marieme Kamara &middot; Spring Boot + Thymeleaf
+    <span>Gestion de Bibliotheque</span>
+    &middot;
+    <span>Marieme KAMARA</span>
+    &middot;
+    <span th:text="${T(java.time.Year).now()}">2026</span>
 </footer>
 
 </body>
