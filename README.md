@@ -1,4 +1,4 @@
-# 📚 Gestion de Bibliothèque
+# Gestion de Bibliothèque
 
 Application web de gestion d'une bibliothèque (livres, utilisateurs, emprunts) construite avec **Spring Boot** et **Thymeleaf**.
 
@@ -7,7 +7,7 @@ Application web de gestion d'une bibliothèque (livres, utilisateurs, emprunts) 
 
 ---
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
 ### Livres
 - Ajouter, modifier, supprimer un livre
@@ -33,7 +33,7 @@ Application web de gestion d'une bibliothèque (livres, utilisateurs, emprunts) 
 
 ---
 
-## ⚙️ Prérequis
+## Prérequis
 
 - **Java 17** ou supérieur
 - **Maven 3.8+** (ou utilisez le wrapper si vous l'ajoutez)
@@ -48,20 +48,14 @@ mvn -version
 
 ---
 
-## 🛠️ Installation et lancement
+## Installation et lancement
 
 ### 1. Démarrer MySQL
 Lancez MySQL (par exemple via le panneau **XAMPP**). La base de données `bibliotheque_db` sera **créée automatiquement** au premier démarrage de l'application.
 
 ### 2. Configurer la connexion
-Ouvrez `src/main/resources/application.properties` et adaptez si besoin :
+Ouvrez `src/main/resources/application.properties` et adaptez si besoin.
 
-```properties
-spring.datasource.username=root
-spring.datasource.password=
-```
-
-> Par défaut, l'utilisateur est `root` sans mot de passe (configuration XAMPP classique).
 
 ### 3. Lancer l'application
 
@@ -79,12 +73,12 @@ java -jar target/gestion-bibliotheque-1.0.0.jar
 ### 4. Ouvrir dans le navigateur
 
 ```
-http://localhost:8080
+http://localhost:8081
 ```
 
 ---
 
-## 🌱 Données de démonstration (optionnel)
+## Données de démonstration (optionnel)
 
 Un fichier `src/main/resources/data.sql` contient des livres et utilisateurs d'exemple.
 
@@ -104,7 +98,7 @@ spring.sql.init.mode=never
 
 ---
 
-## 🗂️ Structure du projet
+## Structure du projet
 
 ```
 GestionBibliotheque/
@@ -146,17 +140,7 @@ GestionBibliotheque/
 
 ---
 
-## 🚀 Déploiement
+##  Licence
 
-L'application produit un `.jar` exécutable autonome. Elle peut être déployée sur :
-- **Render**, **Railway** ou **Koyeb** (avec une base MySQL managée — ex. Aiven, Railway MySQL)
-- Un VPS (avec Java 17 + MySQL installés)
-
-Pensez à externaliser les identifiants de la base via des variables d'environnement en production.
-
----
-
-## 📄 Licence
-
-Projet personnel à but pédagogique — libre de réutilisation.
+Projet personnel à but pédagogique - libre de réutilisation.
 ```
